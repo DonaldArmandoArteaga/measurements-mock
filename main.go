@@ -30,9 +30,9 @@ func init() {
 
 func main() {
 	var wg sync.WaitGroup
-
+	wg.Add(1)
 	go func() {
-		wg.Add(1)
+
 		for {
 			time.Sleep(1 * time.Minute)
 
@@ -48,7 +48,7 @@ func main() {
 	}()
 
 	go func() {
-		wg.Add(1)
+
 		for {
 			time.Sleep(5 * time.Minute)
 
@@ -65,7 +65,7 @@ func main() {
 	}()
 
 	go func() {
-		wg.Add(1)
+
 		for {
 			time.Sleep(10 * time.Minute)
 
