@@ -9,6 +9,7 @@ import (
 	"mesasurements-mock/measurers"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -28,9 +29,10 @@ func init() {
 }
 
 func main() {
+	var wg sync.WaitGroup
 
 	go func() {
-
+		wg.Add(1)
 		for {
 			time.Sleep(1 * time.Minute)
 
@@ -46,7 +48,7 @@ func main() {
 	}()
 
 	go func() {
-
+		wg.Add(1)
 		for {
 			time.Sleep(5 * time.Minute)
 
@@ -63,6 +65,7 @@ func main() {
 	}()
 
 	go func() {
+		wg.Add(1)
 		for {
 			time.Sleep(10 * time.Minute)
 
@@ -72,9 +75,8 @@ func main() {
 		}
 
 	}()
-	for {
 
-	}
+	wg.Wait()
 }
 
 func SendRequest[T any](measurer *measurers.Measurers[T]) {
