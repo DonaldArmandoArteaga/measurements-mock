@@ -2,7 +2,7 @@ package measurers
 
 import "time"
 
-type Measurers[T any] struct {
+type Measurers[T Temperature | Energy] struct {
 	Serial string    `json:"serial"`
 	Date   time.Time `json:"date"`
 	Values T         `json:"values"`
