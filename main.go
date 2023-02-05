@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"log"
 	"math/rand"
 	"mesasurements-mock/measurers"
@@ -18,9 +20,16 @@ var (
 )
 
 func init() {
-	file, err := os.OpenFile(time.Now().String()+"_logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	currentTime := time.Now()
+	date := fmt.Sprintf("%d-%d-%d %d-%d-%d", currentTime.Year(), currentTime.Month(), currentTime.Day(), currentTime.Hour(), currentTime.Minute(), currentTime.Second())
+
+	err := os.Mkdir("logs", os.ModePerm)
+	if !errors.Is(err, os.ErrExist) && err != nil {
+		panic("can't create logs directory: " + err.Error())
+	}
+	file, err := os.Create("./logs/" + date + "_logs")
 	if err != nil {
-		log.Fatal(err)
+		panic("can't create log file" + err.Error())
 	}
 
 	InfoLogger = log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)

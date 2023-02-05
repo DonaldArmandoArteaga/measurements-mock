@@ -1,2 +1,0 @@
-INFO: 2023/01/31 19:33:40 main.go:102: client: got response! => status code:  202
-INFO: 2023/01/31 19:33:40 main.go:102: client: got response! => status code:  202
