@@ -17,6 +17,7 @@ import (
 var (
 	InfoLogger  *log.Logger
 	ErrorLogger *log.Logger
+	API_URL     = os.Getenv("API_URL")
 )
 
 func init() {
@@ -37,6 +38,7 @@ func init() {
 }
 
 func main() {
+
 	var wg sync.WaitGroup
 	wg.Add(1)
 
@@ -90,7 +92,7 @@ func main() {
 
 func SendRequest[T measurers.Temperature | measurers.Energy](measurer *measurers.Measurers[T]) {
 
-	requestURL := "https://787rmeid5e.execute-api.us-east-1.amazonaws.com/prod/v1/input-data"
+	requestURL := fmt.Sprintf("%s%s", API_URL, "v1/input-data")
 
 	var buf bytes.Buffer
 	err := json.NewEncoder(&buf).Encode(measurer)
