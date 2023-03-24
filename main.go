@@ -38,7 +38,7 @@ func init() {
 }
 
 func main() {
-
+	InfoLogger.Println("API_URL:", API_URL)
 	var wg sync.WaitGroup
 	wg.Add(1)
 
